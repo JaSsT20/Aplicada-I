@@ -9,53 +9,53 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = BlazorApp
 build_property.RootNamespace = BlazorApp
-build_property.ProjectDir = j:\Documentos\Drive\Jasson Clase\Aplicada I\BlazorApp\
+build_property.ProjectDir = J:\Documentos\Drive\Jasson Clase\Aplicada I\BlazorApp\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = j:\Documentos\Drive\Jasson Clase\Aplicada I\BlazorApp
+build_property.MSBuildProjectDirectory = J:\Documentos\Drive\Jasson Clase\Aplicada I\BlazorApp
 build_property._RazorSourceGeneratorDebug = 
 
-[j:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/App.razor]
+[J:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[j:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/Pages/Counter.razor]
+[J:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[j:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/Pages/FetchData.razor]
+[J:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/Pages/FetchData.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[j:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/Pages/Index.razor]
+[J:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[j:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/Shared/SurveyPrompt.razor]
+[J:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[j:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/_Imports.razor]
+[J:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[j:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/Shared/MainLayout.razor]
+[J:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-3dsd3z3yec
 
-[j:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/Shared/NavMenu.razor]
+[J:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-7cxxmz0cwl
 
-[j:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/Pages/Error.cshtml]
+[J:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[j:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/Pages/_Host.cshtml]
+[J:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/Pages/_Host.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[j:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/Pages/_Layout.cshtml]
+[J:/Documentos/Drive/Jasson Clase/Aplicada I/BlazorApp/Pages/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0xheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
