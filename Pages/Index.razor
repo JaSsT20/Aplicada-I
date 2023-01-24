@@ -9,38 +9,39 @@ Welcome to your new app.
 <SurveyPrompt Title="How is Blazor working for you?" />
 
 <Counter IncrementAmount="20"/>
+<link rel="stylesheet" href="mycss/registerStyle.css">
 
 <style>
-    table, th, td
-    {
-        border: 0.5px solid black;
-        text-align: center;
-        padding: 10px;
-        margin: 0 auto;
+    .card{
+        width: 500px;
+    }
+    #ocupations{
+        width: 150px;
+    }
+    #search{
+        height: 35px;
+        width:80px;
     }
 </style>
 
-<table>
-    <tr>
-        <th>Nombre</th>
-        <th>Apellidos</th>
-        <th>Email</th>
-    </tr>
-    <tr>
-        <td>Jasson</td>
-        <td>Tejada</td>
-        <td>email@email.com</td>
-    </tr>
+<div class="card">
+  <div class="card-header">
+    <h1>Registro de Ocupaciones</h1>
+  </div>
 
-    <tr>
-        <td>Jasson</td>
-        <td>Tejada</td>
-        <td>email@email.com</td>
-    </tr>
+  <div class="card-body">
+    <label class="form-label">Ocupacion</label>
+          <input type="text" id="ocupations" class="form-control" >
+    <span class="input-group-btn">
+      <button id="search" class="btn btn-info">Buscar</button>
+    </span>
+    <label class="form-label">Descripcion</label>
+    <input type="text" class="form-control" >
+  </div>
 
-    <tr>
-        <td>Jasson</td>
-        <td>Tejada</td>
-        <td>email@email.com</td>
-    </tr>
-</table>
+ <div class="card-footer">
+    <button type="button" class="btn btn-primary">Nuevo</button>
+    <button type="button" class="btn btn-success">Guardar</button>
+    <button type="button" class="btn btn-danger">Eliminar</button> 
+  </div>
+</div>
