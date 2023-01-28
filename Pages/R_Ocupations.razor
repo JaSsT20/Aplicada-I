@@ -3,7 +3,22 @@
 
 @inject OcupationsBLL ocupationsBll
 
+<style>
+    .card{
+        width: 500px;
+    }
+    #ocupations{
+        width: 150px;
+    }
+    #search{
+        height: 35px;
+        width:80px;
+    }
+    .occupation-body {
+        display: flex;
+}
 
+</style>
 
 <EditForm Model="ocupation" OnInvalidSubmit="Save">
     <div class="card">
