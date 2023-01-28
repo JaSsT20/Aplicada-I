@@ -26,7 +26,7 @@
         <div class="card-footer">
             <button type="button" class="btn btn-primary" @onclick="New">Nuevo</button>
             <button type="button" class="btn btn-success" @onclick="Save">Guardar</button>
-            <button type="button" class="btn btn-danger" >Eliminar</button> 
+            <button type="button" class="btn btn-danger" @onclick="Delete">Eliminar</button> 
         </div>
     </div>
 </EditForm>
@@ -60,7 +60,12 @@
 
         void Save()
         {
-            ocupationsBll.Save(ocupation);
+            if(!Validate())
+            {
+                return;
+            }
+            if(ocupationsBll.Save(this.ocupation))
+                this.New();
         }
 
         bool Validate()
@@ -69,5 +74,10 @@
                 return false;
             else
                 return true;
+        }
+        void Delete()
+        {
+            if(ocupationsBll.Delete(ocupation))
+                this.New();
         }
 }
