@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Linq.Expressions;
+
 public class OcupationsBLL
+
 {
     private Context _context;
 
@@ -21,34 +23,34 @@ public class OcupationsBLL
         return _context.SaveChanges() > 0;
     }
 
-    public bool Modify(Ocupations ocupations)
+    public bool Modify(Ocupations occupations)
     {
-        _context.Entry(ocupations).State = EntityState.Modified;
+        _context.Entry(occupations).State = EntityState.Modified;
         return _context.SaveChanges() > 0;
     }
 
-    public bool Save(Ocupations ocupations)
+    public bool Save(Ocupations occupations)
     {
-        if (!Exist(ocupations.OcupationId))
-            return this.Insert(ocupations);
+        if (!Exist(occupations.OcupationId))
+            return this.Insert(occupations);
         else
-            return this.Modify(ocupations);
+            return this.Modify(occupations);
     }
 
-    public bool Delete(Ocupations ocupations)
+    public bool Delete(Ocupations occupations)
     {
-        _context.Entry(ocupations).State = EntityState.Deleted;
+        _context.Entry(occupations).State = EntityState.Deleted;
         return _context.SaveChanges() > 0;
     }
 
-    public Ocupations? Search(int OcupationId)
+    public Ocupations? Search(int OccupationId)
     {
-        return _context.Ocupations.Where(o => o.OcupationId == OcupationId)
+        return _context.Ocupations.Where(o => o.OcupationId == OccupationId)
         .AsNoTracking().SingleOrDefault();
     }
 
-    public List<Ocupations> GetList(Expression<Func<Ocupations, bool>> criterio)
+    public List<Ocupations> GetList(Expression<Func<Ocupations, bool>> criterion)
     {
-        return _context.Ocupations.AsNoTracking().Where(criterio).ToList();
+        return _context.Ocupations.AsNoTracking().Where(criterion).ToList();
     }
 }
