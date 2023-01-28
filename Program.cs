@@ -1,8 +1,20 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using BlazorApp.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Conexión
+var ConStr = builder.Configuration.GetConnectionString("ConStr");
+
+builder.Services.AddDbContext<Context>(options => options.UseSqlite(ConStr));
+//--------------------------------------------------------------------------
+//Inyectando las BLL
+
+builder.Services.AddScoped<OcupationsBLL>();
+//---------------------------------------------------------------------------
+
 
 // Add services to the container.
 builder.Services.AddRazorPages();
