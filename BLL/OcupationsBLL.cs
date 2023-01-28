@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Linq.Expressions;
 public class OcupationsBLL
 {
     private Context _context;
@@ -27,7 +29,7 @@ public class OcupationsBLL
 
     public bool Save(Ocupations ocupations)
     {
-        if (!Existe(ocupations.OcupationId))
+        if (!Exist(ocupations.OcupationId))
             return this.Insert(ocupations);
         else
             return this.Modify(ocupations);
@@ -43,5 +45,10 @@ public class OcupationsBLL
     {
         return _context.Ocupations.Where(o => o.OcupationId == OcupationId)
         .AsNoTracking().SingleOrDefault();
+    }
+
+    public List<Ocupations> GetList(Expression<Func<Ocupations, bool>> criterio)
+    {
+        return _context.Ocupations.AsNoTracking().Where(criterio).ToList();
     }
 }
