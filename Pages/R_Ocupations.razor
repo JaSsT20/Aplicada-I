@@ -7,25 +7,27 @@
 
 <EditForm Model="ocupation" OnInvalidSubmit="Save">
     <div class="card">
-    <div class="card-header">
-        <h1>Registro de ocupaciones</h1>
-    </div>
-
-    <div class="card-body">
-        <label class="form-label">Ocupación</label>
-        <div class="ocupation-body">
-            <InputNumber @bind-Value="ocupation.OcupationId" type="text" id="ocupations" class="form-control" />
-            <button id="search" class="btn btn-info" @onclick="Search">Buscar</button><br>
+        <div class="card-header">
+            <h1>Registro de ocupaciones</h1>
         </div>
-        <label class="form-label">Descripción</label>
-        <InputText @bind-Value="ocupation.Description"  type="text" class="form-control" />
-    </div>
 
-    <div class="card-footer">
-        <button type="button" class="btn btn-primary">Nuevo</button>
-        <button type="button" class="btn btn-success" @onclick="Save">Guardar</button>
-        <button type="button" class="btn btn-danger" >Eliminar</button> 
-    </div>
+        <div class="card-body">
+            <label class="form-label">Ocupación</label>
+            <div class="occupation-body">
+                <InputNumber @bind-Value="ocupation.OcupationId" type="text" id="ocupations" class="form-control" />
+                <button id="search" class="btn btn-info" @onclick="Search">Buscar</button><br>
+            </div>
+            <label class="form-label">Descripción</label>
+            <InputText @bind-Value="ocupation.Description"  type="text" class="form-control" />
+            <label class="form-label">Salario</label>
+            <InputNumber @bind-Value="ocupation.Salary"  type="text" class="form-control" />
+        </div>
+
+        <div class="card-footer">
+            <button type="button" class="btn btn-primary" @onclick="New">Nuevo</button>
+            <button type="button" class="btn btn-success" @onclick="Save">Guardar</button>
+            <button type="button" class="btn btn-danger" >Eliminar</button> 
+        </div>
     </div>
 </EditForm>
 @code
