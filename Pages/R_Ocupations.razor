@@ -15,7 +15,7 @@
         <label class="form-label">Ocupación</label>
         <div class="ocupation-body">
             <InputNumber @bind-Value="ocupation.OcupationId" type="text" id="ocupations" class="form-control" />
-            <button id="search" class="btn btn-info">Buscar</button><br>
+            <button id="search" class="btn btn-info" @onclick="Search">Buscar</button><br>
         </div>
         <label class="form-label">Descripción</label>
         <InputText @bind-Value="ocupation.Description"  type="text" class="form-control" />
@@ -24,7 +24,7 @@
     <div class="card-footer">
         <button type="button" class="btn btn-primary">Nuevo</button>
         <button type="button" class="btn btn-success" @onclick="Save">Guardar</button>
-        <button type="button" class="btn btn-danger">Eliminar</button> 
+        <button type="button" class="btn btn-danger" >Eliminar</button> 
     </div>
     </div>
 </EditForm>
