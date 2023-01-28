@@ -1,9 +1,71 @@
 ﻿@page "/ocupation"
 @page "/ocupation/{OcupationId:int}"
 
-<h3>R_Ocupations</h3>
-
 @inject OcupationsBLL ocupationsBll
 
 
 
+<EditForm Model="ocupation" OnInvalidSubmit="Save">
+    <div class="card">
+    <div class="card-header">
+        <h1>Registro de ocupaciones</h1>
+    </div>
+
+    <div class="card-body">
+        <label class="form-label">Ocupación</label>
+        <div class="ocupation-body">
+            <InputNumber @bind-Value="ocupation.OcupationId" type="text" id="ocupations" class="form-control" />
+            <button id="search" class="btn btn-info">Buscar</button><br>
+        </div>
+        <label class="form-label">Descripción</label>
+        <InputText @bind-Value="ocupation.Description"  type="text" class="form-control" />
+    </div>
+
+    <div class="card-footer">
+        <button type="button" class="btn btn-primary">Nuevo</button>
+        <button type="button" class="btn btn-success" @onclick="Save">Guardar</button>
+        <button type="button" class="btn btn-danger">Eliminar</button> 
+    </div>
+    </div>
+</EditForm>
+@code
+{
+    [Parameter]
+    public int OcupationId { get; set; }
+
+    public Ocupations ocupation { get; set; } = new Ocupations();
+        protected override void OnInitialized()
+        {
+            if(OcupationId > 0)
+            {
+                this.ocupation.OcupationId = OcupationId;
+                this.Search();
+            }
+        }
+        void Search()
+        {
+            var occupationFound = ocupationsBll.Search(ocupation.OcupationId);
+            if(occupationFound != null)
+            {
+                this.ocupation = occupationFound;
+            }
+        }
+
+        void New()
+        {
+            this.ocupation = new Ocupations();
+        }
+
+        void Save()
+        {
+            ocupationsBll.Save(ocupation);
+        }
+
+        bool Validate()
+        {
+            if(String.IsNullOrEmpty(ocupation.Description))
+                return false;
+            else
+                return true;
+        }
+}
