@@ -1,0 +1,60 @@
+@page "/Registre"
+
+<h3>Registre</h3>
+
+
+<style>
+    .card{
+        width: 500px;
+    }
+    #ocupations{
+        width: 150px;
+    }
+    #search{
+        height: 35px;
+        width:80px;
+    }
+    .occupation-body {
+        display: flex;
+}
+</style>
+
+<div class="card">
+    <div class="card-header">
+        <h1>Registro de personas</h1>
+    </div>
+
+    <div class="card-body">
+        <label class="form-label">PersonaID</label>
+        <div class="occupation-body">
+            <input type="text" id="ocupations" class="form-control" />
+            <button id="search" class="btn btn-info">Buscar</button><br>
+        </div>
+        <label class="form-label">Nombres</label>
+        <input type="text" class="form-control" />
+        <label class="form-label">Dirección</label>
+        <input type="text" class="form-control" />
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" />
+        <label class="form-label">Fecha de nacimiento</label>
+        <input type="date" class="form-control" />
+        <label class="form-label">Teléfono</label>
+        <input type="text" class="form-control" />
+        <label class="form-label">Balance</label>
+        <input type="text" class="form-control" />
+        <label class="form-label">Dirección</label>
+        <input type="text" class="form-control" />
+        <label class="form-label">Ocupaciones</label>
+        <select id="cbOccupations" name="cbOccupations" class="form-control"/>
+    </div>
+
+    <div class="card-footer">
+        <button type="button" class="btn btn-primary" >Nuevo</button>
+        <button type="button" class="btn btn-success" >Guardar</button>
+        <button type="button" class="btn btn-danger" >Eliminar</button> 
+    </div>
+</div>
+
+@code {
+
+}
