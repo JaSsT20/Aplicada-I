@@ -16,6 +16,35 @@ namespace BlazorApp.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.2");
 
+            modelBuilder.Entity("Loans", b =>
+                {
+                    b.Property<int>("loanID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<float>("amount")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("balance")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("concept")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("expires")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("personID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("loanID");
+
+                    b.ToTable("Loans");
+                });
+
             modelBuilder.Entity("Ocupations", b =>
                 {
                     b.Property<int>("OcupationId")
@@ -40,8 +69,8 @@ namespace BlazorApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("balance")
-                        .HasColumnType("INTEGER");
+                    b.Property<float>("balance")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("cellphoneNumber")
                         .HasColumnType("TEXT");

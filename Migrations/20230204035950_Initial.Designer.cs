@@ -10,14 +10,43 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlazorApp.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230204013303_Inicial")]
-    partial class Inicial
+    [Migration("20230204035950_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.2");
+
+            modelBuilder.Entity("Loans", b =>
+                {
+                    b.Property<int>("loanID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<float>("amount")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("balance")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("concept")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("expires")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("personID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("loanID");
+
+                    b.ToTable("Loans");
+                });
 
             modelBuilder.Entity("Ocupations", b =>
                 {
@@ -43,8 +72,8 @@ namespace BlazorApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("balance")
-                        .HasColumnType("INTEGER");
+                    b.Property<float>("balance")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("cellphoneNumber")
                         .HasColumnType("TEXT");
