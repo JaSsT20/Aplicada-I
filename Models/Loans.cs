@@ -10,9 +10,9 @@ public class Loans
 
     public int personID { get; set; }
 
-    public int concept { get; set; }
+    public string? concept { get; set; }
 
     public float amount { get; set; }
 
-    public int balance { get; set; }
+    public float balance { get; set; }
 }

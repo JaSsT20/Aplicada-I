@@ -14,7 +14,7 @@ public class Person
 
     public string? email { get; set; }
 
-    public int balance { get; set; }
+    public float balance { get; set; }
 
     public string? direction { get; set; }
 
