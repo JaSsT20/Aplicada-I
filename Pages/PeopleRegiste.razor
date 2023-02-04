@@ -1,14 +1,13 @@
-@page "/Registre"
+@page "/People"
 
 <h3>Registre</h3>
 
+@inject PersonBLL PersonBLL
+@inject OcupationsBLL OcupationsBLL
 
 <style>
     .card{
         width: 500px;
-    }
-    #ocupations{
-        width: 150px;
     }
     #search{
         height: 35px;
@@ -16,45 +15,107 @@
     }
     .occupation-body {
         display: flex;
-}
+    }
 </style>
 
-<div class="card">
-    <div class="card-header">
-        <h1>Registro de personas</h1>
-    </div>
-
-    <div class="card-body">
-        <label class="form-label">PersonaID</label>
-        <div class="occupation-body">
-            <input type="text" id="ocupations" class="form-control" />
-            <button id="search" class="btn btn-info">Buscar</button><br>
+<EditForm Model="person" OnInvalidSubmit="Save">
+    <div class="card">
+        <div class="card-header">
+            <h1>Registro de personas</h1>
         </div>
-        <label class="form-label">Nombres</label>
-        <input type="text" class="form-control" />
-        <label class="form-label">Dirección</label>
-        <input type="text" class="form-control" />
-        <label class="form-label">Email</label>
-        <input type="email" class="form-control" />
-        <label class="form-label">Fecha de nacimiento</label>
-        <input type="date" class="form-control" />
-        <label class="form-label">Teléfono</label>
-        <input type="text" class="form-control" />
-        <label class="form-label">Balance</label>
-        <input type="text" class="form-control" />
-        <label class="form-label">Dirección</label>
-        <input type="text" class="form-control" />
-        <label class="form-label">Ocupaciones</label>
-        <select id="cbOccupations" name="cbOccupations" class="form-control"/>
+
+        <div class="card-body">
+            <label class="form-label">PersonaID</label>
+            <div class="occupation-body">
+                <InputNumber @bind-Value="person.personID" class="form-control" />
+                <button id="search" class="btn btn-info" @onclick="Search">Buscar</button><br>
+            </div>
+            <label class="form-label">Nombres</label>
+            <InputText @bind-Value="person.name" class="form-control" />
+            <label class="form-label">Dirección</label>
+            <InputText @bind-Value="person.direction" class="form-control" />
+            <label class="form-label">Email</label>
+            <InputText @bind-Value="person.email" type="text" class="form-control" />
+            <label class="form-label">Fecha de nacimiento</label>
+            <InputDate @bind-Value="person.dateBirth" class="form-control" />
+            <label class="form-label">Teléfono</label>
+            <InputText @bind-Value="person.phoneNumber" class="form-control" />
+            <label class="form-label">Celular</label>
+            <InputText @bind-Value="person.cellphoneNumber" class="form-control" />
+            <label class="form-label">Balance</label>
+            <InputNumber @bind-Value="person.balance" class="form-control" />
+            <label class="form-label">Ocupaciones</label>
+            <InputSelect @bind-Value="person.occupationID" class="form-control">
+                @foreach (var items in occupationList)
+                {
+                    <option value="@ocupation.Description">@items.Description</option>
+                }
+            </InputSelect>
+            @* <select id="cbOccupations" name="cbOccupations" class="form-control"/> *@
+        </div>
+
+        <div class="card-footer">
+            <button type="button" class="btn btn-primary" @onclick="New">Nuevo</button>
+            <button type="button" class="btn btn-success" @onclick="Save">Guardar</button>
+            <button type="button" class="btn btn-danger" @onclick="Delete">Eliminar</button> 
+        </div>
     </div>
+</EditForm>
+@code
+{
+    [Parameter]
+    public int personID { get; set; }
+    public int occupationID { get; set; }
+    public Person person { get; set; } = new Person();
+    public Ocupations ocupation { get; set; } = new Ocupations();
 
-    <div class="card-footer">
-        <button type="button" class="btn btn-primary" >Nuevo</button>
-        <button type="button" class="btn btn-success" >Guardar</button>
-        <button type="button" class="btn btn-danger" >Eliminar</button> 
-    </div>
-</div>
+    public List<Ocupations> occupationList { get; set; } = new List<Ocupations>();
+        protected override void OnInitialized()
+        {
+            person.occupationID = personID;
+            ocupation.OcupationId = occupationID;
+            occupationList = OcupationsBLL.GetList(p => true); 
+            Search();
+            if(personID > 0)
+            {
+                this.person.personID = personID;
+                this.Search();
+            }
+        }
+        void Search()
+        {
+            var personFound = PersonBLL.Search(person.personID);
+            if(personFound != null)
+            {
+                this.person = personFound;
+            }
+        }
 
-@code {
+        void New()
+        {
+            this.person = new Person();
+        }
 
+        void Save()
+        {
+            if(!Validate())
+            {
+                return;
+            }
+            if(PersonBLL.Save(this.person))
+                this.New();
+        }
+
+        bool Validate()
+        {
+            if(String.IsNullOrEmpty(person.name))
+                return false;
+            else
+                return true;
+        }
+        void Delete()
+        {
+            if(PersonBLL.Delete(person))
+                this.New();
+        }
 }
