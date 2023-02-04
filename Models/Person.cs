@@ -14,9 +14,11 @@ public class Person
 
     public string? email { get; set; }
 
+    public int balance { get; set; }
+
     public string? direction { get; set; }
 
-    public string? dateBirth { get; set; }
+    public DateTime dateBirth { get; set; }
     public int occupationID { get; set; }
 
 }
