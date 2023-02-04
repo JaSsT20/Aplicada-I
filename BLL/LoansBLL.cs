@@ -14,7 +14,7 @@ public class LoansBLL
 
     public bool Exist(int loanID)
     {
-        return _context.Loans.Any( o => o.loanID == loanID); // No entendi bien
+        return _context.Loans.Any( o => o.loanID == loanID);
     }
 
     public bool Insert(Loans loan)

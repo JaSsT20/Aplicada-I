@@ -14,7 +14,7 @@ public class PersonBLL
 
     public bool Exist(int PersonID)
     {
-        return _context.Person.Any( o => o.personID == PersonID); // No entendi bien
+        return _context.Person.Any( o => o.personID == PersonID);
     }
 
     public bool Insert(Person person)

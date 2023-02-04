@@ -14,7 +14,7 @@ public class OcupationsBLL
 
     public bool Exist(int OcupationId)
     {
-        return _context.Ocupations.Any( o => o.OcupationId == OcupationId); // No entendi bien
+        return _context.Ocupations.Any( o => o.OcupationId == OcupationId);
     }
 
     public bool Insert(Ocupations ocupations)
