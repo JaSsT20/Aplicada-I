@@ -109,6 +109,14 @@
         {
             if(String.IsNullOrEmpty(person.name))
                 return false;
+            if(person.occupationID <= 0)
+                return false;
+            if(String.IsNullOrEmpty(person.direction))
+                return false;
+            if(String.IsNullOrEmpty(person.email))
+                return false;
+            if(person.balance <= 0)
+                return false;
             else
                 return true;
         }
