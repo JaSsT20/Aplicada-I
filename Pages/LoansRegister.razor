@@ -1,8 +1,7 @@
 ﻿@page "/Loans"
 
 @inject LoansBLL LoansBLL
-@inject OcupationsBLL OcupationsBLL
-@inject LoansBLL LoansBLL
+@inject PersonBLL PersonBLL
 
 <style>
     .card{
@@ -25,7 +24,7 @@
 
         <div class="card-body">
             <label class="form-label">Prestamo ID</label>
-            <div class="input-searchbtn"> @*cambir*@
+            <div class="input-searchbtn">
                 <InputNumber @bind-Value="loan.loanID" class="form-control" />
                 <button id="search" class="btn btn-info" @onclick="Search">Buscar</button>
             </div>
@@ -37,7 +36,7 @@
             <InputDate @bind-Value="loan.expires" class="form-control" />
 
             <label class="form-label">Persona ID</label>
-            <InputNumber @bind-Value="person.personID" class="form-control" />
+            <InputNumber @bind-Value="loan.personID" class="form-control" />
 
             <label class="form-label">Concepto</label>
             <InputText @bind-Value="loan.concept" class="form-control" />
@@ -47,7 +46,6 @@
 
             <label class="form-label">Balance</label>
             <InputNumber @bind-Value="loan.balance" class="form-control" />
-            @* <select id="cbOccupations" name="cbOccupations" class="form-control"/> *@
         </div>
 
         <div class="card-footer">
@@ -62,20 +60,12 @@
     [Parameter]
     public int personID { get; set; }
     public int occupationID { get; set; }
-
     public int loanID { get; set; }
     public Person person { get; set; } = new Person();
-    public Ocupations ocupation { get; set; } = new Ocupations();
-
     public Loans loan { get; set; } = new Loans();
-
-    public List<Ocupations> occupationList { get; set; } = new List<Ocupations>();
         protected override void OnInitialized()
         {
-            person.occupationID = personID;
-            ocupation.OcupationId = occupationID;
             loan.loanID = loanID;
-            occupationList = OcupationsBLL.GetList(p => true); 
             Search();
             if(loanID > 0)
             {
@@ -86,7 +76,7 @@
         }
         void Search()
         {
-            var loanFound = LoansBLL.Search(person.personID);
+            var loanFound = LoansBLL.Search(loan.loanID);
             if(loanFound != null)
             {
                 this.loan = loanFound;
@@ -95,7 +85,7 @@
 
         void New()
         {
-            this.person = new Person();
+            this.loan = new Loans();
         }
 
         void Save()
@@ -110,7 +100,7 @@
 
         bool Validate()
         {
-            if(String.IsNullOrEmpty(person.name))
+            if(loan.personID <= 0)
                 return false;
             else
                 return true;
