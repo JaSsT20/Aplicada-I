@@ -1,0 +1,123 @@
+﻿@page "/Loans"
+
+@inject LoansBLL LoansBLL
+@inject OcupationsBLL OcupationsBLL
+@inject LoansBLL LoansBLL
+
+<style>
+    .card{
+        width: 500px;
+    }
+    #search{
+        height: 35px;
+        width:80px;
+    }
+    .input-searchbtn {
+        display: flex;
+    }
+</style>
+
+<EditForm Model="person" OnInvalidSubmit="Save">
+    <div class="card">
+        <div class="card-header">
+            <h1>Registro de prestamos</h1>
+        </div>
+
+        <div class="card-body">
+            <label class="form-label">Prestamo ID</label>
+            <div class="input-searchbtn"> @*cambir*@
+                <InputNumber @bind-Value="loan.loanID" class="form-control" />
+                <button id="search" class="btn btn-info" @onclick="Search">Buscar</button>
+            </div>
+
+            <label class="form-label">Fecha</label>
+            <InputDate @bind-Value="loan.date" class="form-control" />
+
+            <label class="form-label">Vence</label>
+            <InputDate @bind-Value="loan.expires" class="form-control" />
+
+            <label class="form-label">Persona ID</label>
+            <InputNumber @bind-Value="person.personID" class="form-control" />
+
+            <label class="form-label">Concepto</label>
+            <InputText @bind-Value="loan.concept" class="form-control" />
+
+            <label class="form-label">Monto</label>
+            <InputNumber @bind-Value="loan.amount" class="form-control" />
+
+            <label class="form-label">Balance</label>
+            <InputNumber @bind-Value="loan.balance" class="form-control" />
+            @* <select id="cbOccupations" name="cbOccupations" class="form-control"/> *@
+        </div>
+
+        <div class="card-footer">
+            <button type="button" class="btn btn-primary" @onclick="New">Nuevo</button>
+            <button type="button" class="btn btn-success" @onclick="Save">Guardar</button>
+            <button type="button" class="btn btn-danger" @onclick="Delete">Eliminar</button> 
+        </div>
+    </div>
+</EditForm>
+@code
+{
+    [Parameter]
+    public int personID { get; set; }
+    public int occupationID { get; set; }
+
+    public int loanID { get; set; }
+    public Person person { get; set; } = new Person();
+    public Ocupations ocupation { get; set; } = new Ocupations();
+
+    public Loans loan { get; set; } = new Loans();
+
+    public List<Ocupations> occupationList { get; set; } = new List<Ocupations>();
+        protected override void OnInitialized()
+        {
+            person.occupationID = personID;
+            ocupation.OcupationId = occupationID;
+            loan.loanID = loanID;
+            occupationList = OcupationsBLL.GetList(p => true); 
+            Search();
+            if(loanID > 0)
+            {
+                this.person.personID = personID;
+                this.loan.loanID = loanID;
+                this.Search();
+            }
+        }
+        void Search()
+        {
+            var loanFound = LoansBLL.Search(person.personID);
+            if(loanFound != null)
+            {
+                this.loan = loanFound;
+            }
+        }
+
+        void New()
+        {
+            this.person = new Person();
+        }
+
+        void Save()
+        {
+            if(!Validate())
+            {
+                return;
+            }
+            if(LoansBLL.Save(this.loan))
+                this.New();
+        }
+
+        bool Validate()
+        {
+            if(String.IsNullOrEmpty(person.name))
+                return false;
+            else
+                return true;
+        }
+        void Delete()
+        {
+            if(LoansBLL.Delete(loan))
+                this.New();
+        }
+}
