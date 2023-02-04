@@ -14,7 +14,8 @@ builder.Services.AddDbContext<Context>(options => options.UseSqlite(ConStr));
 
 builder.Services.AddScoped<OcupationsBLL>();
 //---------------------------------------------------------------------------
-
+builder.Services.AddScoped<PersonBLL>();
+//---------------------------------------------------------------------------
 
 // Add services to the container.
 builder.Services.AddRazorPages();
