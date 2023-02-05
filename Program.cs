@@ -5,20 +5,20 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Conexión
+//Conexión-------------------------------------------------------
 var ConStr = builder.Configuration.GetConnectionString("ConStr");
 
 builder.Services.AddDbContext<Context>(options => options.UseSqlite(ConStr));
 //--------------------------------------------------------------------------
 //Inyectando la BLL OCUPATIONS
-
 builder.Services.AddScoped<OcupationsBLL>();
-
 //INYECTANDO BLL PERSON---------------------------------------------------------------------------
-
 builder.Services.AddScoped<PersonBLL>();
 //INYECTANDO BLL LOANS---------------------------------------------------------------------------
 builder.Services.AddScoped<LoansBLL>();
+//INYECTANDO BLL Payments---------------------------------------------------------------------------
+builder.Services.AddScoped<Payments>();
+
 
 // Add services to the container.
 builder.Services.AddRazorPages();
