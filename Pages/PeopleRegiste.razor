@@ -1,7 +1,5 @@
 @page "/People"
 
-<h3>Registre</h3>
-
 @inject PersonBLL PersonBLL
 @inject OcupationsBLL OcupationsBLL
 
@@ -13,7 +11,7 @@
         height: 35px;
         width:80px;
     }
-    .occupation-body {
+    #search-id {
         display: flex;
     }
 </style>
@@ -26,7 +24,7 @@
 
         <div class="card-body">
             <label class="form-label">PersonaID</label>
-            <div class="occupation-body">
+            <div id="search-id">
                 <InputNumber @bind-Value="person.personID" class="form-control" />
                 <button id="search" class="btn btn-info" @onclick="Search">Buscar</button><br>
             </div>
