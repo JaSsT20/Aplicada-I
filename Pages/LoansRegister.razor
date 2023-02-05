@@ -63,13 +63,11 @@
     public int loanID { get; set; }
     public Person person { get; set; } = new Person();
     public Loans loan { get; set; } = new Loans();
+
         protected override void OnInitialized()
         {
-            loan.loanID = loanID;
-            Search();
             if(loanID > 0)
             {
-                this.person.personID = personID;
                 this.loan.loanID = loanID;
                 this.Search();
             }
