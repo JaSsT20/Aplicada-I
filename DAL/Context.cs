@@ -10,7 +10,7 @@ public class Context : DbContext
 
     public DbSet<Payments> Payments { get; set; }
 
-    public DbSet<PaymentsDetail> PaaymentsDetail { get; set; }
+    public DbSet<PaymentsDetail> PaymentsDetail { get; set; }
     public Context(DbContextOptions<Context> options): base(options)
     {
 
