@@ -17,7 +17,7 @@ builder.Services.AddScoped<PersonBLL>();
 //INYECTANDO BLL LOANS---------------------------------------------------------------------------
 builder.Services.AddScoped<LoansBLL>();
 //INYECTANDO BLL Payments---------------------------------------------------------------------------
-builder.Services.AddScoped<Payments>();
+builder.Services.AddScoped<PaymentsBLL>();
 
 
 // Add services to the container.
