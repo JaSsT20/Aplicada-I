@@ -1,13 +1,11 @@
 using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 public class PaymentsDetail
 {
     [Key]
-    public int id { get; set; }
-    
-    public int paymentID { get; set; }
-
-    public int loanID { get; set; }
-
-    public float amountPaid { get; set; }
+    public int Id { get; set; }
+    [ForeignKey("paymentID")]
+    public int PaymentID { get; set; }
+    public int LoanID { get; set; }
+    public float AmountPaid { get; set; }
 }
