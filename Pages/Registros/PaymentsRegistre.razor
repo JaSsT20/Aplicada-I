@@ -1,0 +1,101 @@
+﻿@page "/Payments"
+
+@inject PaymentsBLL PaymentsBLL
+@inject LoansBLL LoansBLL
+@inject PersonBLL PersonBLL
+
+@code
+{
+
+    [Parameter]
+    public int paymentID { get; set; }
+    public Payments payment { get; set; } = new Payments();
+
+    protected override void OnInitialized()
+    {
+        if(paymentID > 0)
+        {
+            this.payment.paymentID = paymentID;
+        }
+    }
+    void Search()
+    {
+        var paymentFound = PaymentsBLL.Search(payment.paymentID);
+        if(paymentFound != null)
+        {
+            this.payment = paymentFound;
+        }
+    }
+
+    void New()
+    {
+        this.payment = new Payments();
+    }
+
+    void Save()
+    {
+        if(!Validate())
+        {
+            return;
+        }
+
+        payment.PaymentsDetail.PaymentID = payment.paymentID; // ID en el detalle
+
+        var LoanFound = LoansBLL.Search(payment.paymentID);
+        if(LoanFound != null)
+            payment.PaymentsDetail.LoanID = LoanFound.loanID; // ID prestamo
+        
+        payment.PaymentsDetail.AmountPaid += payment.amount;
+
+        if(PaymentsBLL.Save(this.payment))
+        {
+            New();
+        }
+            
+    }
+
+    bool Validate()
+    {
+        if(payment.paymentID <= 0)
+            return false;
+        if(payment.amount <= 0)
+            return false;
+        else
+            return true;
+    }
+    void Delete()
+    {
+        if(PaymentsBLL.Delete(payment))
+            this.New();
+    }
+
+}
+<EditForm Model="payment" OnValidSubmit="Save">
+    <div class="card">
+        <div class="card-header">
+            <h1>Registro pagos</h1>
+        </div>
+
+        <div class="card-body">
+            <label class="form-label">PagoID</label>
+            <div id="search-id">
+                <InputNumber @bind-Value="payment.paymentID" class="form-control"/>
+                <button type="button" id="search" class="btn btn-info" @onclick="Search">Buscar</button>
+            </div>
+            <label class="form-label">Fecha</label>
+            <InputDate @bind-Value="payment.date" class="form-control"/>
+            <label class="form-label">Persona ID</label>
+            <InputNumber @bind-Value="payment.personID" class="form-control"/>
+            <label class="form-label">Concepto</label>
+            <InputText @bind-Value="payment.concept" class="form-control"/>
+            <label class="form-label">Monto</label>
+            <InputNumber @bind-Value="payment.amount" class="form-control"/>
+        </div>
+
+        <div class="card-footer">
+            <button class="btn btn-primary" @onclick="New">Nuevo</button>
+            <button type="submit" class="btn btn-success" @onclick="Save">Guardar</button>
+            <button class="btn btn-danger" @onclick="Delete">Eliminar</button>
+        </div>
+    </div>
+</EditForm>
