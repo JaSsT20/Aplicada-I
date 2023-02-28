@@ -44,6 +44,21 @@ namespace BlazorApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PaymentsDetail",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    PaymentID = table.Column<int>(type: "INTEGER", nullable: false),
+                    LoanID = table.Column<int>(type: "INTEGER", nullable: false),
+                    AmountPaid = table.Column<float>(type: "REAL", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PaymentsDetail", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Person",
                 columns: table => new
                 {
@@ -62,6 +77,34 @@ namespace BlazorApp.Migrations
                 {
                     table.PrimaryKey("PK_Person", x => x.personID);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Payments",
+                columns: table => new
+                {
+                    paymentID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    date = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    personID = table.Column<int>(type: "INTEGER", nullable: false),
+                    concept = table.Column<string>(type: "TEXT", nullable: true),
+                    amount = table.Column<float>(type: "REAL", nullable: false),
+                    PaymentsDetailId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payments", x => x.paymentID);
+                    table.ForeignKey(
+                        name: "FK_Payments_PaymentsDetail_PaymentsDetailId",
+                        column: x => x.PaymentsDetailId,
+                        principalTable: "PaymentsDetail",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_PaymentsDetailId",
+                table: "Payments",
+                column: "PaymentsDetailId");
         }
 
         /// <inheritdoc />
@@ -74,7 +117,13 @@ namespace BlazorApp.Migrations
                 name: "Ocupations");
 
             migrationBuilder.DropTable(
+                name: "Payments");
+
+            migrationBuilder.DropTable(
                 name: "Person");
+
+            migrationBuilder.DropTable(
+                name: "PaymentsDetail");
         }
     }
 }

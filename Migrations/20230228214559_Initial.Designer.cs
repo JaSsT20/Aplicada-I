@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlazorApp.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230204035950_Initial")]
+    [Migration("20230228214559_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -66,6 +66,54 @@ namespace BlazorApp.Migrations
                     b.ToTable("Ocupations");
                 });
 
+            modelBuilder.Entity("Payments", b =>
+                {
+                    b.Property<int>("paymentID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PaymentsDetailId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<float>("amount")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("concept")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("personID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("paymentID");
+
+                    b.HasIndex("PaymentsDetailId");
+
+                    b.ToTable("Payments");
+                });
+
+            modelBuilder.Entity("PaymentsDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<float>("AmountPaid")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("LoanID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PaymentID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentsDetail");
+                });
+
             modelBuilder.Entity("Person", b =>
                 {
                     b.Property<int>("personID")
@@ -100,6 +148,17 @@ namespace BlazorApp.Migrations
                     b.HasKey("personID");
 
                     b.ToTable("Person");
+                });
+
+            modelBuilder.Entity("Payments", b =>
+                {
+                    b.HasOne("PaymentsDetail", "PaymentsDetail")
+                        .WithMany()
+                        .HasForeignKey("PaymentsDetailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PaymentsDetail");
                 });
 #pragma warning restore 612, 618
         }
