@@ -1,0 +1,38 @@
+@page "/c_payments"
+
+@inject PaymentsBLL PaymentsBLL
+
+<h5>Consulta de pagos</h5>
+
+
+@code{
+    public List<Payments> PaymentsList = new List<Payments>();
+
+    protected override void OnInitialized()
+    {
+        PaymentsList = PaymentsBLL.GetList(option => true);
+    }
+}
+<table class="table">
+    <thead>
+        <tr>    
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>ID Persona</th>
+            <th>Concepto</th>
+            <th>Monto</th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var payment in PaymentsList)
+            {
+                <tr>
+                    <td>@payment.paymentID</td>
+                    <td>@payment.date</td>
+                    <td>@payment.personID</td>
+                    <td>@payment.concept</td>
+                    <td>@payment.amount</td>
+                </tr>
+            }
+    </tbody>
+</table>
