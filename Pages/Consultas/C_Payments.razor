@@ -24,15 +24,15 @@
         </tr>
     </thead>
     <tbody>
-            @foreach (var payment in PaymentsList)
-            {
-                <tr>
-                    <td>@payment.paymentID</td>
-                    <td>@payment.date</td>
-                    <td>@payment.personID</td>
-                    <td>@payment.concept</td>
-                    <td>@payment.amount</td>
-                </tr>
-            }
+        @foreach (var payment in PaymentsList)
+        {
+            <tr>
+                <td>@payment.paymentID</td>
+                <td>@payment.date</td>
+                <td>@payment.personID</td>
+                <td>@payment.concept</td>
+                <td>@payment.amount</td>
+            </tr>
+        }
     </tbody>
 </table>
