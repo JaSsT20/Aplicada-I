@@ -69,9 +69,6 @@ namespace BlazorApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("PaymentsDetailId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<float>("amount")
                         .HasColumnType("REAL");
 
@@ -85,8 +82,6 @@ namespace BlazorApp.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("paymentID");
-
-                    b.HasIndex("PaymentsDetailId");
 
                     b.ToTable("Payments");
                 });
@@ -106,7 +101,12 @@ namespace BlazorApp.Migrations
                     b.Property<int>("PaymentID")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("PaymentspaymentID")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PaymentspaymentID");
 
                     b.ToTable("PaymentsDetail");
                 });
@@ -147,14 +147,15 @@ namespace BlazorApp.Migrations
                     b.ToTable("Person");
                 });
 
+            modelBuilder.Entity("PaymentsDetail", b =>
+                {
+                    b.HasOne("Payments", null)
+                        .WithMany("PaymentsDetail")
+                        .HasForeignKey("PaymentspaymentID");
+                });
+
             modelBuilder.Entity("Payments", b =>
                 {
-                    b.HasOne("PaymentsDetail", "PaymentsDetail")
-                        .WithMany()
-                        .HasForeignKey("PaymentsDetailId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("PaymentsDetail");
                 });
 #pragma warning restore 612, 618

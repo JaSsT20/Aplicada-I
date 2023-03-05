@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BlazorApp.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -44,18 +44,19 @@ namespace BlazorApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PaymentsDetail",
+                name: "Payments",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    paymentID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    PaymentID = table.Column<int>(type: "INTEGER", nullable: false),
-                    LoanID = table.Column<int>(type: "INTEGER", nullable: false),
-                    AmountPaid = table.Column<float>(type: "REAL", nullable: false)
+                    date = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    personID = table.Column<int>(type: "INTEGER", nullable: false),
+                    concept = table.Column<string>(type: "TEXT", nullable: true),
+                    amount = table.Column<float>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PaymentsDetail", x => x.Id);
+                    table.PrimaryKey("PK_Payments", x => x.paymentID);
                 });
 
             migrationBuilder.CreateTable(
@@ -79,32 +80,30 @@ namespace BlazorApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Payments",
+                name: "PaymentsDetail",
                 columns: table => new
                 {
-                    paymentID = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    personID = table.Column<int>(type: "INTEGER", nullable: false),
-                    concept = table.Column<string>(type: "TEXT", nullable: true),
-                    amount = table.Column<float>(type: "REAL", nullable: false),
-                    PaymentsDetailId = table.Column<int>(type: "INTEGER", nullable: false)
+                    PaymentID = table.Column<int>(type: "INTEGER", nullable: false),
+                    LoanID = table.Column<int>(type: "INTEGER", nullable: false),
+                    AmountPaid = table.Column<float>(type: "REAL", nullable: false),
+                    PaymentspaymentID = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Payments", x => x.paymentID);
+                    table.PrimaryKey("PK_PaymentsDetail", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Payments_PaymentsDetail_PaymentsDetailId",
-                        column: x => x.PaymentsDetailId,
-                        principalTable: "PaymentsDetail",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_PaymentsDetail_Payments_PaymentspaymentID",
+                        column: x => x.PaymentspaymentID,
+                        principalTable: "Payments",
+                        principalColumn: "paymentID");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Payments_PaymentsDetailId",
-                table: "Payments",
-                column: "PaymentsDetailId");
+                name: "IX_PaymentsDetail_PaymentspaymentID",
+                table: "PaymentsDetail",
+                column: "PaymentspaymentID");
         }
 
         /// <inheritdoc />
@@ -117,13 +116,13 @@ namespace BlazorApp.Migrations
                 name: "Ocupations");
 
             migrationBuilder.DropTable(
-                name: "Payments");
+                name: "PaymentsDetail");
 
             migrationBuilder.DropTable(
                 name: "Person");
 
             migrationBuilder.DropTable(
-                name: "PaymentsDetail");
+                name: "Payments");
         }
     }
 }
