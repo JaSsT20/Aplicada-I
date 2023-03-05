@@ -1,8 +1,8 @@
 ﻿@page "/Payments"
 
 @inject PaymentsBLL PaymentsBLL
-@inject LoansBLL LoansBLL
 @inject PersonBLL PersonBLL
+@inject LoansBLL LoansBLL
 
 @code
 {
@@ -10,9 +10,19 @@
     [Parameter]
     public int paymentID { get; set; }
     public Payments payment { get; set; } = new Payments();
+    public List<Payments> PaymentsList { get; set; } = new List<Payments>();
+    public List<Person> PeopleList { get; set; } = new List<Person>();
+    public List<Loans> LoansList { get; set; } = new List<Loans>();
+    public Loans Loan { get; set; } = new Loans();
+    public PaymentsDetail PaymentDetail { get; set; } = new PaymentsDetail();
+    public List<PaymentsDetail> ListDetail { get; set; } = new List<PaymentsDetail>();
 
     protected override void OnInitialized()
     {
+        PaymentsList = PaymentsBLL.GetList(option => true);
+        PeopleList = PersonBLL.GetList(option => true);
+        LoansList = LoansBLL.GetList(option => true);
+        ListDetail = payment.PaymentsDetail;
         if(paymentID > 0)
         {
             this.payment.paymentID = paymentID;
@@ -30,6 +40,7 @@
     void New()
     {
         this.payment = new Payments();
+        PaymentDetail = new PaymentsDetail();
     }
 
     void Save()
@@ -39,24 +50,22 @@
             return;
         }
 
-        payment.PaymentsDetail.PaymentID = payment.paymentID; // ID en el detalle
-
-        var LoanFound = LoansBLL.Search(payment.paymentID);
-        if(LoanFound != null)
-            payment.PaymentsDetail.LoanID = LoanFound.loanID; // ID prestamo
-        
-        payment.PaymentsDetail.AmountPaid += payment.amount;
-
         if(PaymentsBLL.Save(this.payment))
         {
-            New();
-        }
-            
+            New();  
+        }     
     }
-
+    void AddDetail()
+    {
+        payment.PaymentsDetail.Add(PaymentDetail);
+        System.Console.WriteLine($"{PaymentDetail.Id} -> {PaymentDetail.PaymentID} -> {PaymentDetail.LoanID} -> {PaymentDetail.AmountPaid}");
+        New();
+    }
     bool Validate()
     {
-        if(payment.paymentID <= 0)
+        if(payment.paymentID < 0)
+            return false;
+        if(payment.personID <= 0)
             return false;
         if(payment.amount <= 0)
             return false;
@@ -71,6 +80,7 @@
 
 }
 <EditForm Model="payment" OnValidSubmit="Save">
+    <DataAnnotationsValidator/>
     <div class="card">
         <div class="card-header">
             <h1>Registro pagos</h1>
@@ -80,16 +90,87 @@
             <label class="form-label">PagoID</label>
             <div id="search-id">
                 <InputNumber @bind-Value="payment.paymentID" class="form-control"/>
-                <button type="button" id="search" class="btn btn-info" @onclick="Search">Buscar</button>
+                <button type="button" id="search" class="tn btn-primary input-group-text oi oi-magnifying-glass" @onclick="Search"></button>
             </div>
+
             <label class="form-label">Fecha</label>
             <InputDate @bind-Value="payment.date" class="form-control"/>
+             <ValidationMessage For="@(() =>payment.date)"/>
+
             <label class="form-label">Persona ID</label>
-            <InputNumber @bind-Value="payment.personID" class="form-control"/>
+            <InputSelect @bind-Value=payment.personID class="form-select dropdown-toggle">
+                @foreach (var person in PeopleList)
+                {
+                    <option value="@person.personID">[@person.personID] @person.name</option>
+                }
+            </InputSelect>
+            @* <InputNumber @bind-Value="payment.personID" class="form-control"/> *@
+            <ValidationMessage For="@(() =>payment.personID)"/>
+
             <label class="form-label">Concepto</label>
             <InputText @bind-Value="payment.concept" class="form-control"/>
+
+
             <label class="form-label">Monto</label>
             <InputNumber @bind-Value="payment.amount" class="form-control"/>
+            <ValidationMessage For="@(() =>payment.amount)"/>
+        </div>
+    </div>
+
+@* -------- Aqui empieza el detalle ---------- *@
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Detalle</h3>
+        </div>
+        
+        <div class="card-body">
+            <label class="form-label">ID</label>
+            <button class="btn btn-success" @onclick="AddDetail">Agregar</button>
+            <InputNumber @bind-Value="PaymentDetail.Id" class="form-control"/>
+            
+            @* PaymentID *@
+            <label class="form-label">PagoID</label>
+            <InputSelect @bind-Value="PaymentDetail.PaymentID" class="form-select dropdown-toggle">
+                @foreach (var payment in PaymentsList)
+                {
+                    <option value="@payment.paymentID">@payment.paymentID</option>
+                }
+            </InputSelect>
+
+            @* LoanID *@
+            <label class="form-label">PrestamoID</label>
+            <InputSelect @bind-Value="PaymentDetail.LoanID" class="form-select dropdown-toggle">
+                @foreach (var loan in LoansList)
+                {
+                    <option value="@loan.loanID">@loan.loanID</option>
+                }
+            </InputSelect>
+
+            @* AmountPaid *@
+            <label>Monto pagado</label>
+            <InputNumber @bind-Value="PaymentDetail.AmountPaid" class="form-control"/>
+            
+            <table class="table">
+                <thead>
+                    <th>Id</th>
+                    <th>PagoId</th>
+                    <th>PrestamoId</th>
+                    <th>Valor pagado</th>
+                </thead>
+                <tbody>
+                        @foreach (var detail in ListDetail)
+                        {
+                            <tr>
+                                <td>@detail.Id</td>
+                                <td>@detail.PaymentID</td>
+                                <td>@detail.LoanID</td>
+                                <td>@detail.AmountPaid</td>
+                                <td><button class="btn btn-link">Remove</button></td> 
+                            </tr>
+                        }
+                </tbody>
+            </table>
         </div>
 
         <div class="card-footer">
@@ -97,5 +178,6 @@
             <button type="submit" class="btn btn-success" @onclick="Save">Guardar</button>
             <button class="btn btn-danger" @onclick="Delete">Eliminar</button>
         </div>
+
     </div>
 </EditForm>
